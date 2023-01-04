@@ -1,2 +1,7 @@
-# BuildWSLToolBuild
-Docker Build File and helper Scripts to build a WSL Image via exporting from Docker.
+# Build a Docker Container with Fedora as an Ansible Control Node
+
+# Build Command
+docker build . -t ansible_fedora
+
+# Run interactively
+docker run -it ansible_fedora
