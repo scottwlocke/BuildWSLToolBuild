@@ -46,13 +46,16 @@ RUN dnf update -y; \
     dnf install -y su-exec; \
     dnf clean all
 
-# Create non root user, expire password, add to wheel, and add wsl.conf file 
-#RUN adduser --groups wheel --disabled-password --gecos '' scott
+# Create non root user, add to wheel, delete password, and add wsl.conf file 
+# TODO: Create password change on first run
 RUN useradd -G wheel scott ; \
     passwd -d scott
 ADD wsl.conf /etc/wsl.conf
+# Switching to non root user to configure PIP installs
+USER scott
 
 # Add windows related tools for Ansible via PIP
+# TODO: Is this the most efficent way in regards to disk size?
 RUN pip3 install --upgrade pip; \
     pip3 install --upgrade virtualenv; \
     pip3 install pywinrm[kerberos]; \
