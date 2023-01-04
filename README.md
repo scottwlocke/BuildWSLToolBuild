@@ -1,5 +1,9 @@
 # Build a Docker Container with Fedora as an Ansible Control Node
-This is just an attempt and generating a custom WSL image for use with WSL2.  Based it off of Fedora since it is 
+This is just an attempt and generating a custom WSL image for use with WSL2.  
+
+# ** THIS IS FOR DEVELOPMENT AND TESTING ONLY NOT PRODUCTION **
+
+Based it off of Fedora since it is 
 focused on Ansible and other utilities.
 ## Pre-Requistes
 
@@ -45,4 +49,4 @@ Add the --version 2 to ensure it is built for WSL2 Environment
 
 ## TODO
 - Configure Vault with Certs
--
+- PowerShell Scripts
