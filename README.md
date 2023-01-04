@@ -47,6 +47,20 @@ wsl --import WSLNAME WSLPATH PATH\IMAGE.tar --version 2
 
 Add the --version 2 to ensure it is built for WSL2 Environment
 
+
+# Maintenance
+- Clean up Docker files
+```
+docker system prune
+```
+Will clean up any orphaned layers or containers when running the build multiple times
+
+- Remove an existing WSL Distro
+```
+wsl --unregister WSLNAME
+```
+This will make it no long show in wsl --list and will also remove the Virtual Disk
+
 ## TODO
 - Configure Vault with Certs
 - PowerShell Scripts
