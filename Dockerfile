@@ -15,7 +15,7 @@ FROM fedora:latest
 
 ENV PYTHONIOENCODING=utf-8
 
-
+# Trying to keep the installs in one layer in docker to keep size down somehat
 RUN dnf update -y; \
     dnf install -y glibc-locale-source glibc-langpack-en; \
     localedef -f UTF-8 -i en_US en_US.UTF-8; \
@@ -39,20 +39,31 @@ RUN dnf update -y; \
     dnf install -y passwd cracklib-dicts; \
     dnf install -y util-linux; \
     dnf install -y iputils; \
-    dnf install - y ca-certificates; \
+    dnf install -y ca-certificates; \
     dnf install -y gnupg; \
     dnf install -y openssl; \
-    dnf install libcap; \
+    dnf install -y libcap; \
     dnf install -y su-exec; \
+    dnf install -y which; \
+    dnf install -y util-linux-user; \
+    # TODO: Configure zsh to show git information on command line
+    dnf install -y zsh; \
+    chsh -s /bin/zsh; \
+    # TODO: Configure fonts for zsh and bash
+    dnf install -y powerline; \
+    dnf install -y fonts-powerline; \
+    dnf install -y cascadia-code-fonts; \
     dnf clean all
 
 # Create non root user, add to wheel, delete password, and add wsl.conf file 
-# TODO: Create password change on first run
+# TODO: TEST: Create password change on first run
 RUN useradd -G wheel scott ; \
-    passwd -d scott
+    passwd -d scott; \
+    passwd --expire scott
 ADD wsl.conf /etc/wsl.conf
 # Switching to non root user to configure PIP installs
 USER scott
+WORKDIR /home/scott
 
 # Add windows related tools for Ansible via PIP
 # TODO: Is this the most efficent way in regards to disk size?
@@ -64,4 +75,8 @@ RUN pip3 install --upgrade pip; \
     pip3 install requests
    # ansible-galaxy collection install azure.azcollection 
    #  pip3 install -r ~/.ansible/collections/ansible_collections/azure/azcollection/requirements-azure.txt
+
+RUN sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+RUN chsh -s /bin/zsh
+
 

@@ -66,3 +66,6 @@ This will make it no long show in wsl --list and will also remove the Virtual Di
 - PowerShell Scripts
 - VMware PowerCLI install
 - Amazon Tool Installer Module
+- Add font ligatures for GIT 
+- oh-my-zsh???
+- oh-my-posh??
